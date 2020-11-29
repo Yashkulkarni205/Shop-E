@@ -1,0 +1,61 @@
+{% extends 'shop/base.html' %}
+{% load myfilter %}
+{% block container %}
+{% if orders|length == 0 %}
+                <div class="text-container">
+                <div>
+                No Orders
+                <div><a href="{% url 'products' %}">Shop Now</a></div>
+                </div>
+                </div>
+{% else %}
+<div class="cart-container">
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th style="font-size: 45px;">Orders</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td onclick="location.href='{% url 'product-detail' order.image.product.id %}'"><img src="{{ order.image.image.url }}"></td>
+                    <td onclick="location.href='{% url 'product-detail' order.image.product.id %}'">{{ order.image.product.name }}</td>
+                    <td><i style="font-size: large;" class="icofont-rupee"></i>{{ order.image.product.price }}</td>
+                    <td>{{order.quantity}}</td>
+                    <td><i style="font-size: large;"
+                            class="icofont-rupee"></i>{{ order.price|multiply:order.quantity }}</td>
+                    <td><button class="{{ order.image.product.name}}" type="submit"><i
+                                style="font-size: x-large;" class="icofont-ui-delete"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    $(document).on('click', 'button', function (e) {
+        e.preventDefault();
+        // AJAX Code To Submit Form.
+        $.ajax({
+            type: 'POST',
+            url: '#',
+            data: {
+                name: $(this).attr('class'),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (response) {
+                $('.table').empty()
+                $('.table').append(response)
+            }
+        });
+    });
+</script>
+{% endblock container %}

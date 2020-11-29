@@ -1,0 +1,12 @@
+{% extends 'shop/base.html' %}
+{% block container %}
+<div class="text-container">
+<div>
+<form method="POST">
+{% csrf_token %}
+Are you sure you wanna delete this product?
+<div><button type="submit">Delete</button><a href="{% url 'product-detail' product.id %}">Cancel</a></div>
+</form>
+</div>
+</div>
+{% endblock container %}

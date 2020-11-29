@@ -1,0 +1,78 @@
+{% extends 'shop/base.html' %}
+{% load myfilter %}
+{% block container %}
+
+{% if products|length == 0 %}
+                <div class="text-container">
+                <div>
+                Your Cart is Empty
+                <div><a href="{% url 'products' %}">Shop Now</a></div>
+                </div>
+                </div>
+{% else %}
+<div class="cart-container">
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th style="font-size: 45px;">Shopping Cart</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+                {% for product,quantity in products %}
+                <tr>
+                    <td  onclick="location.href='{% url 'product-detail' product.product.id %}'"><img src="{{ product.image.url }}"></td>
+                    <td  onclick="location.href='{% url 'product-detail' product.product.id %}'">{{ product.product.name }}</td>
+                    <td><i style="font-size: large;" class="icofont-rupee"></i>{{ product.product.price }}</td>
+                    <td>
+                        <div>
+                            <button class="{{ product.product.name}}" value="-1" type="submit"><i class="icofont-caret-left"></i></button>
+                            {{quantity}}
+                            <button class="{{ product.product.name}}" value="+1" type="submit"><i class="icofont-caret-right"></i></button>
+                        </div>
+                    </td>
+                    <td><i style="font-size: large;"
+                            class="icofont-rupee"></i>{{ product.product.price|multiply:quantity }}</td>
+                    <td><button class="{{ product.product.name}}" value="-{{quantity}}" type="submit"><i
+                                style="font-size: x-large;" class="icofont-ui-delete"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+            <thead class="bill">
+                <tr>
+                    <th>Total</th>
+                    <th><i style="font-size: large;" class="icofont-rupee"></i>{{ products|total }}</th>
+                    <th><a href="{% url 'check-out' %}">Check Out</a></th>
+                </tr>
+            </thead>
+            
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    $(document).on('click', 'button', function (e) {
+        e.preventDefault();
+        // AJAX Code To Submit Form.
+        $.ajax({
+            type: 'POST',
+            url: '#',
+            data: {
+                name: $(this).attr('class'),
+                quan: $(this).attr('value'),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (response) {
+                $('.table').empty()
+                $('.table').append(response)
+            }
+        });
+    });
+</script>
+{% endblock container %}

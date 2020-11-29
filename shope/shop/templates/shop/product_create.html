@@ -1,0 +1,48 @@
+{% extends 'shop/base.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="form-container">
+<div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% csrf_token %}
+    {% for non_field_error in p_form.non_field_errors %}
+        <p>{{ non_field_error }}</p>
+    {% endfor %}
+    {% for field in p_form %}
+        <div class="field">
+        <label class="label">
+            {{ field.html_name }}
+        </label>
+        {{ field }}
+        {% for error in field.errors %}
+            <p>
+                {{ error }}
+            </p>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    {% csrf_token %}
+    {% for non_field_error in img_form.non_field_errors %}
+        <p>{{ non_field_error }}</p>
+    {% endfor %}
+    {% for field in img_form %}
+        <div class="field">
+        <label class="label">
+            {{ field.html_name }}
+        </label>
+        {{ field }}
+        {% for error in field.errors %}
+            <p>
+                {{ error }}
+            </p>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <div id="button">
+    <button type="submit">Create</button>
+    </div>
+</form>
+</div>
+</div>
+{% endblock container %}

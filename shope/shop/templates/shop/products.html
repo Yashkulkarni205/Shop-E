@@ -1,0 +1,38 @@
+{% extends 'shop/base.html' %}
+{% block container %}
+<div class="product-container">
+{% for product in products %}
+<div class='product'>
+    <img onclick="location.href='{% url 'product-detail' product.id %}'" src="{{ product.image.url }}" alt="">
+    <span onclick="location.href='{% url 'product-detail' product.id %}'" >{{ product.product.name }}</span>
+    <span id="price"><i style="font-size: large;" class="icofont-rupee"></i>{{ product.product.price }}</span>
+    {% if product.product.name in request.session.cart  %}
+    <div><a href="{% url 'cart' %}">Go to Cart</a></div>
+    {% else  %}
+    <button type="submit" value="{{product.product.name}}">Add to Cart</Button>
+    {% endif %}
+</div>
+{% endfor %}
+</div>
+
+<script>
+    $(document).on('click','button',function(e){
+        e.preventDefault();
+        $(this).replaceWith('<div><a href="{% url 'cart' %}">Go to Cart</a></div>');
+        // AJAX Code To Submit Form.
+        $.ajax({
+        type: 'POST',
+        url: '/add-to-cart/',
+        data: {
+                name: $(this).attr('value'),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        success:function(data)
+        {
+            
+        }
+        });
+
+    });
+</script>
+{% endblock container %}

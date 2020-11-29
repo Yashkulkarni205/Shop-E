@@ -1,0 +1,26 @@
+{% load myfilter %}
+<table>
+            <thead>
+                <tr>
+                    <th style="font-size: 45px;">Orders</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td onclick="location.href='{% url 'product-detail' order.image.product.id %}'"><img src="{{ order.image.image.url }}"></td>
+                    <td onclick="location.href='{% url 'product-detail' order.image.product.id %}'">{{ order.image.product.name }}</td>
+                    <td><i style="font-size: large;" class="icofont-rupee"></i>{{ order.image.product.price }}</td>
+                    <td>{{order.quantity}}</td>
+                    <td><i style="font-size: large;"
+                            class="icofont-rupee"></i>{{ order.price|multiply:order.quantity }}</td>
+                    <td><button class="{{ order.image.product.name}}" type="submit"><i
+                                style="font-size: x-large;" class="icofont-ui-delete"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>

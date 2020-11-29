@@ -1,0 +1,39 @@
+{% extends 'shop/base.html' %}
+{% block container %}
+<div class="detail-container">
+    <div>
+        <div class="image">
+            <img src="{{ product.image.url }}" alt="">
+        </div>
+        <div class="detail">
+            <span style="font: 45px Arial">{{ product.product.name }}</span>
+            <a href="{% url 'product-category' product.product.category %}">{{ product.product.category }}</a>
+            <span><i style="font-size: large;" class="icofont-rupee"></i>{{ product.product.price }}</span>
+            <div>
+                <button value="{{ product.product.name }}" >Add to Cart</button>
+                {% if user.is_superuser %}
+                <a href="{% url 'product-delete' product.product.id %}"><i class="icofont-ui-delete"></i></a>
+                <a href="{% url 'product-update' product.product.id %}"><i class="icofont-swoosh-up"></i></i></a>
+                {% endif %}
+            </div>
+            <span>Description</span>
+            <span style="font-weight: 100; font-size: 15px;"> {{ product.product.description }}</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click','button',function(e){
+        e.preventDefault();
+        // AJAX Code To Submit Form.
+        $.ajax({
+        type: 'POST',
+        url: '/add-to-cart/',
+        data: {
+                name: $(this).attr('value'),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }   
+        });
+    });
+</script>
+{% endblock container %}

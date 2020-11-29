@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop-e</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="{% static 'shop/css/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+<body>
+    <nav>
+        <div id="logo"><a href="/">Shop-E</a></div>
+        <div class="center-nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="category">
+                    <a>Categories</a>
+                    <div class="category-content">
+                        <a href="{% url 'product-category' 'clothing' %}">Clothing</a>
+                        <a href="{% url 'product-category' 'electronics' %}">Electronics</a>
+                        <a href="{% url 'product-category' 'food' %}">Food</a>
+                    </div></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product-create' %}">Add Product</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="right-nav">
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                <li><a href="{% url 'orders' %}">My Orders</a></l1>
+                {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                {% endif %}
+                <li><a href="{% url 'contact' %}"><i class="icofont-headphone-alt"></i></a></li>
+                <li><a href="{% url 'cart' %}"><i class="icofont-shopping-cart"></i><sup>{{ request.session.cart|length }}</sup></a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="{{msg.tags}}">
+        {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif %}
+        {% block container %}
+        <div class="home">
+            <div>
+            <span style="font-size: 27px;">NEW ARRIVALS</span>
+            <span style="font-size: 85px; font-weight: 600;">Get Your Perfect Look Right Now</span>
+            <span style="font-size: 18px;">Shopping is better than sex. If you're not satisfied after shopping, you can make an exchange for something you really like.Once again, we come to the Holiday Season, a deeply religious time that each of us observes, in his own way, by going to the mall of his choice. — Adrienne Gusoff</span>
+            <a id="button-1" href="{% url 'register' %}">Sign In</a>
+            <a id="button-2" href="{% url 'products' %}">Shop Now</a>
+            </div>
+        </div>
+        {% endblock container %}
+        
+    </div>
+</body>
+</html>
