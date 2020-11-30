@@ -21,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fhvebbhn)3i7k@!so0842(puo-rw#gpta@5l)@#z7cesn3$^+9'
+# SECRET_KEY = 'fhvebbhn)3i7k@!so0842(puo-rw#gpta@5l)@#z7cesn3$^+9'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = True
 
 ALLOWED_HOSTS = ['shopecommerce.herokuapp.com']
 
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -128,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'shop/static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'shop/static')]
 STATIC_ROOT = os.path.join(BASE_DIR,'shop/staticfiles')
 
 # Where to go after logging in
