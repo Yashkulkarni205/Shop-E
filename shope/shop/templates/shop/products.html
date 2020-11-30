@@ -1,10 +1,9 @@
-{% load static %}
 {% extends 'shop/base.html' %}
 {% block container %}
 <div class="product-container">
 {% for product in products %}
 <div class='product'>
-    <img onclick="location.href='{% url 'product-detail' product.id %}'" src="{% static product.image.url %}" alt="">
+    <img onclick="location.href='{% url 'product-detail' product.id %}'" src="{{ product.image.url }}" alt="">
     <span onclick="location.href='{% url 'product-detail' product.id %}'" >{{ product.product.name }}</span>
     <span id="price"><i style="font-size: large;" class="icofont-rupee"></i>{{ product.product.price }}</span>
     {% if product.product.name in request.session.cart  %}
