@@ -7,3 +7,4 @@ Pillow==8.0.1
 pycryptodome==3.9.9
 pytz==2020.4
 sqlparse==0.4.1
+gunicorn==19.9.0
