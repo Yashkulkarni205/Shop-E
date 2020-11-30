@@ -67,5 +67,5 @@ class Order(models.Model):
     country = models.CharField(max_length=35)
 
     def __str__(self):
-        return str(self.product) + '-' + str(self.user.all()[0])
+        return str(self.image.product.name) + '-' + str(self.user.all()[0])
 

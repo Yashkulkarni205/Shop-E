@@ -1,0 +1,20 @@
+{% extends 'shop/base.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+<div class="form-container">
+<div>
+
+<form action="https://securegw-stage.paytm.in/theia/processTransaction" method="post" name="paytm">
+    <span style="text-align:center" class="label" ><p>Please Do not refresh this page.</p><div>Redirecting you to the merchant....</div></span>
+    {% for key, value in param_dict.items %}
+    <input type="hidden" name="{{key}}" value="{{value}}">
+    {% endfor %}
+
+</form>
+</div>
+</div>
+
+<script>
+document.paytm.submit()
+</script>
+{% endblock container %}

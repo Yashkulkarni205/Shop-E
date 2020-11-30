@@ -18,6 +18,7 @@
 <script>
     $(document).on('click','button',function(e){
         e.preventDefault();
+        $('sup').load("{% url 'sup' %}");
         $(this).replaceWith('<div><a href="{% url 'cart' %}">Go to Cart</a></div>');
         // AJAX Code To Submit Form.
         $.ajax({
@@ -27,10 +28,10 @@
                 name: $(this).attr('value'),
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
-        success:function(data)
+        success: function()
         {
-            
-        }
+            $('sup').load("{% url 'sup' %}");
+        } 
         });
 
     });

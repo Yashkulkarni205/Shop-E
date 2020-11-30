@@ -375,7 +375,7 @@ form p
     width: 98%;
 }
 
-.danger
+.error
 {
     font: 25px Arial;
     text-align: center;
@@ -475,20 +475,25 @@ form p
     color: rgb(131, 131, 131);   
 }
 
-.detail-container .detail div button{
+.detail-container .detail div
+{
+    margin: 11px 0px;
+}
+
+.detail-container .detail div button, .detail-container .detail div .goto
+{
     background: #ff5200;
     font-size: 15px;
     color: white;
     padding: 7px;
-    margin: 11px 0px;
     border: none;
 }
 
-.detail-container .detail div a
+.detail-container .detail div .admin-btn
 {
     border-radius: 17px;
     background: #e1dddd;
     margin-left: 8px;
     font-size: 18px;
     padding: 5px 6px;
-} 
+}

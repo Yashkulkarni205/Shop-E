@@ -1,12 +1,17 @@
+from .models import Product, ProductImage, UserDetail, Order
+from .forms import ProductForm, ProductImageForm, UserDetailForm, ContactForm
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from .models import Product, ProductImage, UserDetail, Order
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-from .forms import ProductForm, ProductImageForm, UserDetailForm, ContactForm
-from django.contrib import messages
-from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+from . import Checksum
+import uuid
+
+MERCHANT_KEY = 'kbzk1DSbJiV_O3p5';
 
 # Create your views here.
 def admin_only(func):
@@ -26,6 +31,13 @@ class AdminOnlyMixin:
 
 def home(request):
     return render(request, 'shop/base.html')
+
+def sup(request):
+    if 'cart' not in request.session:
+        request.session['cart'] = {}
+
+    cart = request.session['cart']
+    return HttpResponse(str(len(cart)))
 
 def contact(request):
     if request.method == 'POST':
@@ -184,25 +196,76 @@ def checkout(request):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            messages.success(request,f"Order Successfully Placed")
 
-            phone = form.cleaned_data.get('phone')
-            adrress = form.cleaned_data.get('adrress')
-            city = form.cleaned_data.get('city')
-            state = form.cleaned_data.get('state')
-            country = form.cleaned_data.get('country')
-            pincode =form.cleaned_data.get('pincode')
-
+            amount = 0
             for name,quantity in cart.items():
-                image = ProductImage.objects.get(product=Product.objects.get(name=name))
-                order = Order.objects.create(image= image, quantity = quantity, price = image.product.price, phone = phone, adrress = adrress, city = city, state = state, country = country, pincode = pincode)
-                order.user.add(request.user)
+                product=Product.objects.get(name=name)
+                price = product.price
+
+                for i in price:
+                    if i.isdigit() == False:
+                        price = price.replace(i,'')
+                
+                amount += (int(price) * quantity)
             
-            cart.clear()
-            request.session['cart'] = cart
-            return redirect('home')
+            id = str(uuid.uuid4())
+            
+            param_dict={
+
+            'MID': 'WorldP64425807474247',
+            'ORDER_ID': id,
+            'TXN_AMOUNT': str(amount),
+            'CUST_ID': str(request.user.email),
+            'INDUSTRY_TYPE_ID': 'Retail',
+            'WEBSITE': 'WEBSTAGING',
+            'CHANNEL_ID': 'WEB',
+            'CALLBACK_URL':'http://127.0.0.1:8000/callback/',
+            }
+
+            param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict,MERCHANT_KEY)
+            
+            return  render(request, 'shop/payment_gateway.html', {'param_dict': param_dict})
 
     return render(request, 'shop/checkout.html', { 'form': form })
+
+@csrf_exempt
+def callback(request):
+    form = request.POST
+    response_dict = {}
+    for i in form.keys():
+        response_dict[i] = form[i]
+        if i == 'CHECKSUMHASH':
+            checksum = form[i]
+
+    verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+    if verify:
+        if response_dict['RESPCODE'] == '01':
+            return redirect('place-order')
+
+        else:
+            messages.error(request,f'{response_dict["RESPMSG"]} - Could Not Complete Your request. Try Again Later')
+            
+    return redirect('home')
+
+def placeorder(request):
+    user_detail = UserDetail.objects.get(user=request.user)
+
+    if 'cart' not in request.session:
+        request.session['cart'] = {}
+        
+    cart = request.session['cart']
+
+    for name,quantity in cart.items():
+        image = ProductImage.objects.get(product=Product.objects.get(name=name))
+        order = Order.objects.create(image= image, quantity = quantity, price = image.product.price, phone = user_detail.phone, adrress = user_detail.adrress, city = user_detail.city, state = user_detail.state, country = user_detail.country, pincode = user_detail.pincode)
+        order.user.add(request.user)
+            
+    cart.clear()
+    request.session['cart'] = cart
+
+    messages.success(request,"Order Successfully Placed")
+
+    return redirect('home')
 
 def orders(request):
     if request.method == 'POST':
@@ -216,3 +279,5 @@ def orders(request):
     return render(request,'shop/orders.html',{
         'orders':  Order.objects.filter(user=request.user)
     })
+
+

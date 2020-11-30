@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('sup/', views.sup, name='sup'),
     path('contact/', views.contact, name='contact'),
     path('products/', views.ProductListView.as_view(), name='products'),
     path('products/create/', views.product_create, name='product-create'),
@@ -13,7 +14,10 @@ urlpatterns = [
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
     path('cart/', views.cart, name='cart'),
     path('check-out/', views.checkout, name='check-out'),
+    path('callback/', views.callback, name='callback'),
+    path('place-order/', views.placeorder, name='place-order'),
     path('orders/', views.orders, name='orders'),
+
 ]
 
 from django.conf import settings

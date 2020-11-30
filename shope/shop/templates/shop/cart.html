@@ -59,6 +59,7 @@
 <script>
     $(document).on('click', 'button', function (e) {
         e.preventDefault();
+        $('sup').load("{% url 'sup' %}");
         // AJAX Code To Submit Form.
         $.ajax({
             type: 'POST',
@@ -71,6 +72,7 @@
             success: function (response) {
                 $('.table').empty()
                 $('.table').append(response)
+                $('sup').load("{% url 'sup' %}"); 
             }
         });
     });
