@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'shop/static'), os.path.join(BASE_DIR,'user/static')]
-STATIC_ROOT = os.path.join(BASE_DIR,'shop/static')
+STATIC_ROOT = os.path.join(BASE_DIR,'shop/staticfiles')
 
 # Where to go after logging in
 LOGIN_REDIRECT_URL = 'home'
