@@ -241,6 +241,16 @@ form button
     color: white;
 }
 
+form button:hover
+{
+    border: 2px solid rgb(0, 132, 255);
+    font-size: 20px;
+    padding: 15px 40px;
+    border-radius: 30px;
+    background-color: white;
+    color: rgb(0, 132, 255);
+}
+
 .form-container a
 {
     font: 1em sans-serif;
