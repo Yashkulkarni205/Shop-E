@@ -1,0 +1,499 @@
+*
+{
+    transition: height 0.66s ease-in;
+    transition: width 0.66s ease-in;
+}
+
+/* base navigation */
+
+nav
+{  
+    border-bottom: 1px solid #0000007e;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul
+{
+    display: flex;
+}
+
+nav li
+{   
+    list-style: none;
+}
+
+nav a
+{
+    padding: 14px;
+    text-decoration: none;
+    color: #000;
+    font: 1.1em 'Poppins', sans-serif;
+}
+
+nav #logo a
+{
+    font: 40px 'Great Vibes', cursive;
+}
+
+nav li a:hover
+{   
+    color: rgb(0, 132, 255);
+}
+
+
+nav .category-content{
+    display: none;
+    position: absolute;
+    top: 65px;
+    width: 155px;
+    border-radius: 7px;
+    background: white;
+    border-top: 3px solid rgb(0, 132, 255);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    z-index: 1;
+
+}
+
+nav .category-content a{
+    display: block;
+}
+
+nav .category:hover .category-content{
+    display: block;
+}
+
+nav .category-content a:hover
+{
+    font-size: 1.2em;
+}
+
+nav sup {
+    padding: 0px 5px;
+    color: white;
+    font-size: xx-small;
+    background-color: rgb(255, 0, 55);
+    border-radius: 8px;
+}
+
+/* base container */
+
+.home
+{
+    background-image: url("https://source.unsplash.com/random/1600x900");
+    width: 100%;
+    height: 90vh;
+    font-family: 'Josefin Sans';
+    color: white; 
+}
+
+.home div{
+    width: 60%;
+    position: absolute;
+    top: 30%;
+    left: 6%;
+}
+
+.home div span{
+    margin-bottom: 20px;
+    display: block;
+}
+
+.home div a
+{
+    margin: 5px;
+    display: inline-block;
+    font-size: 1.8em;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+}
+
+.home #button-1
+{
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.home #button-2
+{
+    background: white;
+    border: 2px solid white;
+    color: #111111;
+}
+
+/* products and categories container */
+
+.product-container
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-container .product
+{
+    cursor: pointer;
+    margin: 30px;
+}
+
+.product-container span
+{
+    display: block;
+    text-align: center;
+    margin: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.product #price
+{
+    font: 22px sans-serif;
+    font-weight: 600;
+}
+
+.product button
+{
+    background: black;
+    border: none;
+    color: white;
+    padding: 9px;
+    font-size: 18px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.product div
+{
+    background: black;
+    width: 93%;
+    padding: 8px;
+    text-align: center;
+}
+
+.product a
+{
+    text-decoration: none;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* forms container */
+
+.form-container
+{
+    width: 100%;
+    height: 90vh;
+    background-image: linear-gradient(to right top, #11a9c9, #219ae3, #857ee2, #cc50b6, #eb1267);
+}
+
+.form-container>div{
+    border-radius: 7px;
+    padding: 18px;
+    width: 70%;
+    background: rgb(255,255,255);
+    position: absolute;
+    top: 54%;
+    transform: translateY(-50%);
+    left: 15%;
+}
+
+
+.field
+{
+    margin: 20px;
+}
+
+.label
+{   
+    text-transform: capitalize;
+    font: 20px Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.field input,textarea
+{
+    border: none;
+    border-bottom: 1px solid rgb(163, 163, 163);
+    width: 100%;
+    font-size: 18px;
+}
+
+.field input:focus, .field textarea:focus
+{
+    outline: none;
+}
+
+form #button
+{
+    text-align: center;
+}
+
+form button
+{
+    border: none;
+    font-size: 20px;
+    padding: 15px 40px;
+    border-radius: 30px;
+    background-color: rgb(0, 132, 255);
+    color: white;
+}
+
+.form-container a
+{
+    font: 1em sans-serif;
+    text-decoration: none;
+    color: rgb(131, 131, 131);   
+}
+
+form #button>div
+{
+    margin: 6px;
+}
+
+button:focus
+{
+    outline: none;
+}
+
+form p
+{
+    font: 1em sans-serif;
+    color: red;
+}
+
+/* cart and orders container  */
+
+.cart-container
+{
+    width: 100%;
+    height: 90vh;
+    background-color: #857ee2;
+}
+
+.cart-container table 
+{
+    position: absolute;
+    left: 15%;
+    border-radius: 12px;
+    top: 54%;
+    transform: translateY(-50%); 
+    width: 70%; 
+    border-collapse: collapse;
+    background-color: white;
+} 
+
+.cart-container table tbody, .cart-container table thead { 
+    display: block; 
+}  
+  
+.cart-container table tbody 
+{ 
+    font: 20px Arial;      
+    height: 66vh;
+    overflow-y: auto; 
+} 
+  
+.cart-container table tbody tr 
+{
+    border-top: 4px solid  #e1e8ee;
+    display: grid;
+    grid-template-columns: 17% 17% 16% 17% 17% 16%;
+    align-items: center;
+}
+
+.cart-container table tbody tr td
+{
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.cart-container img
+{
+    width: 80%;
+}
+
+.cart-container table thead tr
+{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.cart-container table .bill
+{
+    font: 25px Arial;
+    background: black;
+    color: white;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.cart-container table .bill a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.cart-container table td button
+{
+    border: none;
+    background: none;
+}
+
+.cart-container table td button i
+{
+    font-size: 35px;
+    color: #8f949b;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+
+/* messages  */
+.success
+{
+    font: 25px Arial;
+    text-align: center;
+    padding: 4px;
+    position: absolute;
+    background: rgb(94, 206, 94);
+    color: green;
+    border: 3px solid green;
+    width: 98%;
+}
+
+.error
+{
+    font: 25px Arial;
+    text-align: center;
+    padding: 4px;
+    position: absolute;
+    background: rgb(255, 109, 109);
+    color: red;
+    border: 3px solid red;
+    width: 98%;
+}
+
+/* Normal container  */
+
+.text-container
+{
+    width: 100%;
+    height: 90vh;
+    background-image:linear-gradient(to right top, #c9b311, #f6771c, #ff145e, #d800ab, #1245eb);
+}
+
+.text-container>div{
+    border-radius: 7px;
+    padding: 18px;
+    width: 70%;
+    background: rgb(255,255,255);
+    position: absolute;
+    top: 54%;
+    transform: translateY(-50%);
+    left: 15%;
+    text-align: center;
+    font: 20px Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.text-container a
+{
+    margin-top: 15px;
+    display: inline-block;
+    background-color: rgb(57, 77, 94);
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 15px 40px;
+    border-radius: 30px;
+}
+
+.text-container button
+{
+    margin: 10px;
+    border: none;
+    font-size: 20px;
+    padding: 15px 40px;
+    border-radius: 30px;
+    background-color: rgb(204, 24, 0);
+    color: white;
+}
+
+/* Detail container */
+
+.detail-container
+{
+    width: 100%;
+    height: 90vh;
+    background-image: linear-gradient(to right top, #11a9c9, #219ae3, #857ee2, #cc50b6, #eb1267);
+    
+}
+
+.detail-container>div{
+    border-radius: 7px;
+    padding: 18px;
+    background: rgb(255,255,255);
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font: 20px 'Poppins';
+    display: grid;
+    grid-template-columns: 49% 49%; 
+    gap: 2%;
+    max-height: 70%;
+    min-width: 65%;
+    overflow: scroll;
+}
+
+.detail-container .image img{
+    width: 100%;
+}
+
+.detail-container .detail span{
+    display: block;
+    font-weight: 600;
+}
+
+.detail-container a
+{
+    font: 0.8em sans-serif;
+    text-decoration: none;
+    color: rgb(131, 131, 131);   
+}
+
+.detail-container .detail div
+{
+    margin: 11px 0px;
+}
+
+.detail-container .detail div button, .detail-container .detail div .goto
+{
+    background: #ff5200;
+    font-size: 15px;
+    color: white;
+    padding: 7px;
+    border: none;
+}
+
+.detail-container .detail div .admin-btn
+{
+    border-radius: 17px;
+    background: #e1dddd;
+    margin-left: 8px;
+    font-size: 18px;
+    padding: 5px 6px;
+}
