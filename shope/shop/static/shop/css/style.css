@@ -234,7 +234,6 @@ form #button
 form button
 {
     border: 3px solid rgb(0, 132, 255);
-    border: none;
     font-size: 20px;
     padding: 14px 40px;
     border-radius: 30px;
