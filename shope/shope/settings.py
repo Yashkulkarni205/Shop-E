@@ -138,7 +138,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'shop/static/shop/media/image')
+MEDIA_ROOT = os.path.join(BASE_DIR,'shop/static/shop/media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
