@@ -24,6 +24,7 @@
                         <a href="{% url 'product-category' 'electronics' %}">Electronics</a>
                         <a href="{% url 'product-category' 'food' %}">Food</a>
                     </div></li>
+                <li><a href="{% url 'api' %}">API</a></li>
                 {% if user.is_superuser %}
                 <li><a href="{% url 'product-create' %}">Add Product</a></li>
                 {% endif %}
